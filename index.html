@@ -1,10 +1,1812 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Cyber Devs</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="CyberDevs - Android Developers, Game Creators & Cybersecurity Experts based in Islamabad, Pakistan.">
+  <meta name="theme-color" content="#000000">
+  <title>CyberDevs | Android · Games · Cybersecurity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --black: #000000;
+      --white: #F8F8F8;
+      --blue-deep: #1F5EFF;
+      --blue-mid: #2D8CFF;
+      --blue-light: #4CCEFF;
+      --cyan: #61E2FF;
+      --azure: #3AA8FF;
+      --font-main: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--blue-mid);
+      border-radius: 2px;
+    }
+
+    /* SELECTION */
+    ::selection {
+      background: var(--blue-deep);
+      color: var(--white);
+    }
+
+    /* ─── NAV ─── */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 4%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(31, 94, 255, 0.15);
+      transition: padding 0.3s ease, border-color 0.3s ease;
+      gap: 1.5rem;
+    }
+
+    #navbar.scrolled {
+      padding: 0.65rem 4%;
+      border-bottom-color: rgba(31, 94, 255, 0.3);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .nav-logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav-logo-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--white), var(--blue-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+    }
+
+    /* ── Desktop nav links (always horizontal) ── */
+    .nav-links {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: clamp(1rem, 2vw, 2rem);
+      list-style: none;
+      flex: 1;
+      justify-content: flex-end;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: rgba(248, 248, 248, 0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--blue-light);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue-light);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 0.45rem 1.1rem;
+      background: transparent;
+      border: 1px solid var(--blue-mid);
+      color: var(--blue-light) !important;
+      border-radius: 6px;
+      transition: all 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: rgba(45, 140, 255, 0.1) !important;
+      box-shadow: 0 0 20px rgba(45, 140, 255, 0.2);
+    }
+
+    .nav-cta::after {
+      display: none !important;
+    }
+
+    /* hamburger — only visible on small screens */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      flex-shrink: 0;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 7rem 5% 4rem;
+    }
+
+    /* animated grid background */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(31, 94, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(31, 94, 255, 0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridPulse 8s ease-in-out infinite;
+    }
+
+    @keyframes gridPulse {
+
+      0%,
+      100% {
+        opacity: 0.5;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* radial glow */
+    .hero-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(ellipse, rgba(31, 94, 255, 0.12) 0%, transparent 70%);
+      animation: glowPulse 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes glowPulse {
+
+      0%,
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.7;
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.15);
+        opacity: 1;
+      }
+    }
+
+    /* floating particles */
+    .particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--blue-light);
+      border-radius: 50%;
+      animation: float linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-10vh) translateX(60px);
+        opacity: 0;
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.4rem 1rem;
+      border: 1px solid rgba(76, 206, 255, 0.3);
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--cyan);
+      margin-bottom: 2rem;
+      background: rgba(76, 206, 255, 0.05);
+      animation: fadeInDown 0.8s ease both;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--cyan);
+      border-radius: 50%;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.2;
+      }
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.9s ease 0.2s both;
+    }
+
+    .hero-title .cyber {
+      background: linear-gradient(135deg, var(--white) 0%, var(--white) 40%, var(--blue-light) 70%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-title .devs {
+      background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid), var(--azure));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: rgba(248, 248, 248, 0.6);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      animation: fadeInUp 1s ease 0.4s both;
+      line-height: 1.7;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 3rem;
+      animation: fadeInUp 1s ease 0.5s both;
+    }
+
+    .hero-tag {
+      padding: 0.35rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid rgba(45, 140, 255, 0.3);
+      color: var(--blue-light);
+      background: rgba(45, 140, 255, 0.07);
+      font-family: var(--font-mono);
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease 0.6s both;
+    }
+
+    .btn-primary {
+      padding: 0.85rem 2rem;
+      background: linear-gradient(135deg, var(--blue-deep), var(--blue-mid));
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--blue-mid), var(--blue-light));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .btn-primary:hover::before {
+      opacity: 1;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(31, 94, 255, 0.4);
+    }
+
+    .btn-primary span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-outline {
+      padding: 0.85rem 2rem;
+      background: transparent;
+      color: var(--blue-light);
+      border: 1px solid rgba(76, 206, 255, 0.4);
+      border-radius: 8px;
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+    }
+
+    .btn-outline:hover {
+      background: rgba(76, 206, 255, 0.08);
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+    }
+
+    /* ─── SECTION COMMON ─── */
+    section {
+      padding: 6rem 5%;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--blue-light);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--blue-light);
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .section-title span {
+      background: linear-gradient(135deg, var(--blue-mid), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-desc {
+      color: rgba(248, 248, 248, 0.55);
+      font-size: 1rem;
+      max-width: 560px;
+      line-height: 1.75;
+    }
+
+    /* ─── STATS ─── */
+    .stats {
+      padding: 4rem 5%;
+      border-top: 1px solid rgba(31, 94, 255, 0.1);
+      border-bottom: 1px solid rgba(31, 94, 255, 0.1);
+      background: rgba(31, 94, 255, 0.03);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .stat-item {
+      padding: 1rem;
+    }
+
+    .stat-num {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--blue-mid), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-family: var(--font-mono);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: rgba(248, 248, 248, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── SERVICES ─── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .service-card {
+      padding: 2rem;
+      border: 1px solid rgba(31, 94, 255, 0.15);
+      border-radius: 12px;
+      background: rgba(31, 94, 255, 0.03);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s;
+      cursor: default;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(31, 94, 255, 0.06), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue-deep), var(--cyan));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+
+    .service-card:hover {
+      border-color: rgba(45, 140, 255, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(31, 94, 255, 0.12);
+    }
+
+    .service-card:hover::before {
+      opacity: 1;
+    }
+
+    .service-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.6rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .icon-android {
+      background: rgba(97, 226, 255, 0.1);
+      border: 1px solid rgba(97, 226, 255, 0.2);
+    }
+
+    .icon-games {
+      background: rgba(45, 140, 255, 0.1);
+      border: 1px solid rgba(45, 140, 255, 0.2);
+    }
+
+    .icon-cyber {
+      background: rgba(31, 94, 255, 0.1);
+      border: 1px solid rgba(31, 94, 255, 0.2);
+    }
+
+    .icon-web {
+      background: rgba(58, 168, 255, 0.1);
+      border: 1px solid rgba(58, 168, 255, 0.2);
+    }
+
+    .service-name {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-desc {
+      font-size: 0.9rem;
+      color: rgba(248, 248, 248, 0.5);
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 1.25rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--blue-light);
+      padding: 0.2rem 0.6rem;
+      border: 1px solid rgba(76, 206, 255, 0.2);
+      border-radius: 4px;
+      background: rgba(76, 206, 255, 0.05);
+    }
+
+    /* ─── ABOUT ─── */
+    .about {
+      position: relative;
+    }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .about-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+    }
+
+    .about-terminal {
+      width: 100%;
+      background: #0a0a0a;
+      border: 1px solid rgba(31, 94, 255, 0.25);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 60px rgba(31, 94, 255, 0.08);
+    }
+
+    .terminal-bar {
+      padding: 0.75rem 1rem;
+      background: #111;
+      border-bottom: 1px solid rgba(31, 94, 255, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .t-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .t-dot:nth-child(1) {
+      background: #FF5F57;
+    }
+
+    .t-dot:nth-child(2) {
+      background: #FFBD2E;
+    }
+
+    .t-dot:nth-child(3) {
+      background: #28C840;
+    }
+
+    .t-title {
+      margin-left: auto;
+      margin-right: auto;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: rgba(248, 248, 248, 0.3);
+    }
+
+    .terminal-body {
+      padding: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 2;
+      min-height: 280px;
+    }
+
+    .t-line {
+      display: flex;
+      gap: 8px;
+    }
+
+    .t-prompt {
+      color: var(--blue-mid);
+    }
+
+    .t-cmd {
+      color: var(--white);
+    }
+
+    .t-out {
+      color: rgba(248, 248, 248, 0.5);
+    }
+
+    .t-highlight {
+      color: var(--cyan);
+    }
+
+    .t-success {
+      color: #28C840;
+    }
+
+    .t-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background: var(--blue-light);
+      animation: cursorBlink 1s step-end infinite;
+      vertical-align: text-bottom;
+    }
+
+    @keyframes cursorBlink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .about-content .section-title {
+      margin-bottom: 1.25rem;
+    }
+
+    .about-features {
+      list-style: none;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .about-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 1rem 1.25rem;
+      border: 1px solid rgba(31, 94, 255, 0.12);
+      border-radius: 8px;
+      background: rgba(31, 94, 255, 0.03);
+      transition: all 0.3s;
+    }
+
+    .about-feature:hover {
+      border-color: rgba(45, 140, 255, 0.25);
+      background: rgba(31, 94, 255, 0.06);
+    }
+
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: rgba(45, 140, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .feature-text strong {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+
+    .feature-text span {
+      font-size: 0.8rem;
+      color: rgba(248, 248, 248, 0.5);
+    }
+
+    /* ─── SKILLS TICKER ─── */
+    .ticker-section {
+      padding: 2rem 0;
+      overflow: hidden;
+      border-top: 1px solid rgba(31, 94, 255, 0.08);
+      border-bottom: 1px solid rgba(31, 94, 255, 0.08);
+      background: rgba(31, 94, 255, 0.02);
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 0;
+      animation: ticker 25s linear infinite;
+      width: max-content;
+    }
+
+    @keyframes ticker {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: rgba(248, 248, 248, 0.4);
+      white-space: nowrap;
+    }
+
+    .ticker-item::before {
+      content: '◆';
+      color: var(--blue-deep);
+      font-size: 0.5rem;
+    }
+
+    /* ─── CONTACT ─── */
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem;
+      border: 1px solid rgba(31, 94, 255, 0.15);
+      border-radius: 10px;
+      background: rgba(31, 94, 255, 0.03);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s;
+    }
+
+    .contact-card:hover {
+      border-color: rgba(45, 140, 255, 0.3);
+      background: rgba(31, 94, 255, 0.07);
+      transform: translateX(4px);
+    }
+
+    .contact-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: rgba(45, 140, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .contact-card-label {
+      font-size: 0.75rem;
+      color: rgba(248, 248, 248, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 2px;
+    }
+
+    .contact-card-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--blue-light);
+    }
+
+    /* FORM */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-label {
+      font-size: 0.8rem;
+      color: rgba(248, 248, 248, 0.5);
+      font-family: var(--font-mono);
+      letter-spacing: 0.05em;
+    }
+
+    .form-input {
+      padding: 0.75rem 1rem;
+      background: rgba(31, 94, 255, 0.05);
+      border: 1px solid rgba(31, 94, 255, 0.2);
+      border-radius: 8px;
+      color: var(--white);
+      font-family: var(--font-main);
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .form-input:focus {
+      border-color: var(--blue-mid);
+      background: rgba(31, 94, 255, 0.08);
+      box-shadow: 0 0 0 3px rgba(31, 94, 255, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: rgba(248, 248, 248, 0.25);
+    }
+
+    textarea.form-input {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 3rem 5% 2rem;
+      border-top: 1px solid rgba(31, 94, 255, 0.1);
+      background: rgba(31, 94, 255, 0.02);
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand .nav-logo {
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: rgba(248, 248, 248, 0.4);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--blue-light);
+      margin-bottom: 1rem;
+      font-family: var(--font-mono);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .footer-links a {
+      color: rgba(248, 248, 248, 0.45);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--blue-light);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(31, 94, 255, 0.08);
+      font-size: 0.8rem;
+      color: rgba(248, 248, 248, 0.25);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-bottom a {
+      color: rgba(45, 140, 255, 0.6);
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--blue-light);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── MOBILE SLIDE-IN NAV ─── */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.97);
+      z-index: 99;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mobile-menu a {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+      letter-spacing: 0.03em;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--blue-light);
+    }
+
+    /* ─── TABLET (≤ 900px): compress nav links but keep them visible ─── */
+    @media (max-width: 900px) {
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .nav-links a {
+        font-size: 0.78rem;
+      }
+
+      .nav-cta {
+        padding: 0.4rem 0.9rem;
+      }
+
+      .nav-logo-text {
+        font-size: 1rem;
+      }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .about-visual {
+        min-height: auto;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* ─── MOBILE (≤ 600px): hamburger replaces nav links ─── */
+    @media (max-width: 600px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      nav {
+        padding: 0.9rem 5%;
+      }
+
+      .hero {
+        padding: 6rem 5% 3rem;
+      }
+
+      .hero-title {
+        font-size: clamp(2.6rem, 12vw, 4rem);
+      }
+
+      .hero-sub {
+        font-size: 0.95rem;
+      }
+
+      .hero-badge {
+        font-size: 0.7rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .btn-primary,
+      .btn-outline {
+        width: 100%;
+        justify-content: center;
+      }
+
+      section {
+        padding: 3.5rem 5%;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+      }
+    }
+
+    /* ─── VERY SMALL (≤ 380px) ─── */
+    @media (max-width: 380px) {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+
+      .hero-tags {
+        gap: 0.5rem;
+      }
+
+      .hero-tag {
+        font-size: 0.72rem;
+        padding: 0.3rem 0.7rem;
+      }
+
+      .stat-num {
+        font-size: 2.2rem;
+      }
+    }
+
+    /* security marker (invisible watermark for GitHub pages) */
+    .meta-secure {
+      display: none;
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Cyber Devs</h1>
-    <p>Welcome to Cyber Devs.</p>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo" aria-label="CyberDevs Home">
+      <div class="nav-logo-icon"><img src="logo.png" alt="CyberDevs Logo"></div>
+      <span class="nav-logo-text">CyberDevs</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation">
+    <a href="#services" class="mobile-link">Services</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#skills" class="mobile-link">Skills</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+
+  <!-- Particles -->
+  <div class="particles" aria-hidden="true" id="particles"></div>
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge" role="status">
+        <span class="badge-dot"></span>
+        <span>Available for projects · Islamabad, Pakistan</span>
+      </div>
+
+      <h1 class="hero-title" id="hero-heading">
+        <span class="cyber">Cyber</span>
+        <span class="devs">Devs</span>
+      </h1>
+
+      <p class="hero-sub">
+        We build Android apps, immersive games, and cybersecurity tools that push the limits of what mobile technology
+        can do.
+      </p>
+
+      <div class="hero-tags" aria-label="Specialisations">
+        <span class="hero-tag">Android Development</span>
+        <span class="hero-tag">Mobile Games</span>
+        <span class="hero-tag">Cybersecurity Tools</span>
+        <span class="hero-tag">Kotlin &amp; Java</span>
+        <span class="hero-tag">Penetration Testing</span>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">
+          <span>Explore Our Work</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="#contact" class="btn-outline">
+          <span>Get in Touch</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats" aria-label="Our achievements">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="50">0</div>
+        <div class="stat-label">Apps Shipped</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="20">0</div>
+        <div class="stat-label">Games Released</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="30">0</div>
+        <div class="stat-label">Security Tools</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-num" data-target="100">0</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section id="services" aria-labelledby="services-heading">
+    <div class="section-label">What we do</div>
+    <h2 class="section-title" id="services-heading">
+      Built for the <span>digital frontier</span>
+    </h2>
+    <p class="section-desc">
+      From crafting seamless Android experiences to building defensive cybersecurity tools, we operate at the
+      intersection of performance and security.
+    </p>
+
+    <div class="services-grid">
+      <div class="service-card reveal" tabindex="0">
+        <div class="service-icon icon-android" aria-hidden="true">📱</div>
+        <h3 class="service-name">Android Development</h3>
+        <p class="service-desc">Native Android apps engineered for performance, built with modern Kotlin and Jetpack
+          Compose. From MVPs to full-scale production apps.</p>
+        <div class="service-tags">
+          <span class="service-tag">Kotlin</span>
+          <span class="service-tag">Jetpack Compose</span>
+          <span class="service-tag">MVVM</span>
+          <span class="service-tag">Room DB</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal" tabindex="0">
+        <div class="service-icon icon-games" aria-hidden="true">🎮</div>
+        <h3 class="service-name">Mobile Game Development</h3>
+        <p class="service-desc">Immersive 2D and 3D games optimized for Android. We handle everything from game design
+          to deployment on the Play Store.</p>
+        <div class="service-tags">
+          <span class="service-tag">Unity</span>
+          <span class="service-tag">LibGDX</span>
+          <span class="service-tag">OpenGL ES</span>
+          <span class="service-tag">C#</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal" tabindex="0">
+        <div class="service-icon icon-cyber" aria-hidden="true">🛡️</div>
+        <h3 class="service-name">Cybersecurity Tools</h3>
+        <p class="service-desc">Custom security utilities and defensive tools — network analyzers, vulnerability
+          scanners, and privacy-focused Android applications.</p>
+        <div class="service-tags">
+          <span class="service-tag">Penetration Testing</span>
+          <span class="service-tag">Network Analysis</span>
+          <span class="service-tag">Encryption</span>
+          <span class="service-tag">OSINT</span>
+        </div>
+      </div>
+
+      <div class="service-card reveal" tabindex="0">
+        <div class="service-icon icon-web" aria-hidden="true">⚡</div>
+        <h3 class="service-name">API &amp; Backend Integration</h3>
+        <p class="service-desc">Robust backend connections and REST API integrations built with security-first
+          principles, keeping your app data safe and fast.</p>
+        <div class="service-tags">
+          <span class="service-tag">REST APIs</span>
+          <span class="service-tag">Firebase</span>
+          <span class="service-tag">Retrofit</span>
+          <span class="service-tag">Coroutines</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills ticker -->
+  <div class="ticker-section" id="skills" aria-label="Technologies we use">
+    <div class="ticker-track" aria-hidden="true">
+      <span class="ticker-item">Kotlin</span>
+      <span class="ticker-item">Java</span>
+      <span class="ticker-item">Jetpack Compose</span>
+      <span class="ticker-item">Unity</span>
+      <span class="ticker-item">Firebase</span>
+      <span class="ticker-item">Python</span>
+      <span class="ticker-item">C#</span>
+      <span class="ticker-item">Android SDK</span>
+      <span class="ticker-item">Room Database</span>
+      <span class="ticker-item">Retrofit</span>
+      <span class="ticker-item">Kali Linux</span>
+      <span class="ticker-item">Metasploit</span>
+      <span class="ticker-item">Burp Suite</span>
+      <span class="ticker-item">Wireshark</span>
+      <span class="ticker-item">Git</span>
+      <span class="ticker-item">GitHub Actions</span>
+      <span class="ticker-item">REST APIs</span>
+      <span class="ticker-item">Coroutines</span>
+      <!-- duplicate for seamless loop -->
+      <span class="ticker-item">Kotlin</span>
+      <span class="ticker-item">Java</span>
+      <span class="ticker-item">Jetpack Compose</span>
+      <span class="ticker-item">Unity</span>
+      <span class="ticker-item">Firebase</span>
+      <span class="ticker-item">Python</span>
+      <span class="ticker-item">C#</span>
+      <span class="ticker-item">Android SDK</span>
+      <span class="ticker-item">Room Database</span>
+      <span class="ticker-item">Retrofit</span>
+      <span class="ticker-item">Kali Linux</span>
+      <span class="ticker-item">Metasploit</span>
+      <span class="ticker-item">Burp Suite</span>
+      <span class="ticker-item">Wireshark</span>
+      <span class="ticker-item">Git</span>
+      <span class="ticker-item">GitHub Actions</span>
+      <span class="ticker-item">REST APIs</span>
+      <span class="ticker-item">Coroutines</span>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section id="about" class="about" aria-labelledby="about-heading">
+    <div class="about-inner">
+      <div class="about-visual reveal">
+        <div class="about-terminal" role="img" aria-label="Terminal showing CyberDevs stack info">
+          <div class="terminal-bar">
+            <div class="t-dot"></div>
+            <div class="t-dot"></div>
+            <div class="t-dot"></div>
+            <span class="t-title">cyberdevs — bash</span>
+          </div>
+          <div class="terminal-body" id="terminal-body">
+            <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd"> whoami</span></div>
+            <div class="t-line"><span class="t-out">→ <span class="t-highlight">CyberDevs</span> — Android · Games ·
+                Security</span></div>
+            <div class="t-line"> </div>
+            <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd"> cat location.txt</span></div>
+            <div class="t-line"><span class="t-out">→ Islamabad, Pakistan 🇵🇰</span></div>
+            <div class="t-line"> </div>
+            <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd"> ./check_stack.sh</span></div>
+            <div class="t-line"><span class="t-out">[<span class="t-success">✓</span>] Kotlin / Java</span></div>
+            <div class="t-line"><span class="t-out">[<span class="t-success">✓</span>] Unity / LibGDX</span></div>
+            <div class="t-line"><span class="t-out">[<span class="t-success">✓</span>] Kali Linux tools</span></div>
+            <div class="t-line"><span class="t-out">[<span class="t-success">✓</span>] Firebase / REST APIs</span></div>
+            <div class="t-line"> </div>
+            <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd"> status</span></div>
+            <div class="t-line"><span class="t-out">→ <span class="t-success">READY</span> for your next project <span
+                  class="t-cursor"></span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-content reveal">
+        <div class="section-label">Who we are</div>
+        <h2 class="section-title" id="about-heading">
+          Security-minded <span>builders</span>
+        </h2>
+        <p class="section-desc">
+          CyberDevs is a team of passionate developers based in Islamabad, Pakistan. We specialise in creating Android
+          applications that are fast, beautiful, and built with security at the core — not as an afterthought.
+        </p>
+
+        <ul class="about-features">
+          <li class="about-feature">
+            <div class="feature-icon" aria-hidden="true">🔒</div>
+            <div class="feature-text">
+              <strong>Security by default</strong>
+              <span>Every app we build follows OWASP Mobile Security guidelines from day one.</span>
+            </div>
+          </li>
+          <li class="about-feature">
+            <div class="feature-icon" aria-hidden="true">🚀</div>
+            <div class="feature-text">
+              <strong>Performance-first</strong>
+              <span>Optimised for Android hardware — smooth 60fps interfaces and minimal battery drain.</span>
+            </div>
+          </li>
+          <li class="about-feature">
+            <div class="feature-icon" aria-hidden="true">🌐</div>
+            <div class="feature-text">
+              <strong>Open-source advocates</strong>
+              <span>Several of our cybersecurity tools are published openly on GitHub for the community.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" aria-labelledby="contact-heading">
+    <div class="section-label">Get in touch</div>
+    <h2 class="section-title" id="contact-heading" style="margin-bottom:0.5rem;">
+      Let's build something <span>together</span>
+    </h2>
+    <p class="section-desc" style="margin-bottom:3.5rem;">
+      Have a project in mind or need a security audit? Drop us a message and we'll respond within 24 hours.
+    </p>
+
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <a href="mailto:cyberdevs505@gmail.com" class="contact-card" aria-label="Email us">
+          <div class="contact-card-icon" aria-hidden="true">✉️</div>
+          <div>
+            <div class="contact-card-label">Email</div>
+            <div class="contact-card-value">cyberdevs505@gmail.com</div>
+          </div>
+        </a>
+        <div class="contact-card" aria-label="Our location">
+          <div class="contact-card-icon" aria-hidden="true">📍</div>
+          <div>
+            <div class="contact-card-label">Location</div>
+            <div class="contact-card-value">Islamabad, Pakistan</div>
+          </div>
+        </div>
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="contact-card"
+          aria-label="GitHub (opens in new tab)">
+          <div class="contact-card-icon" aria-hidden="true">⌨️</div>
+          <div>
+            <div class="contact-card-label">GitHub</div>
+            <div class="contact-card-value">github.com/cyberdevs</div>
+          </div>
+        </a>
+      </div>
+
+      <form class="contact-form reveal" id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="name">Your Name</label>
+            <input class="form-input" id="name" name="name" type="text" placeholder="Ahmed Khan" required
+              autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address</label>
+            <input class="form-input" id="email" name="email" type="email" placeholder="you@example.com" required
+              autocomplete="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="subject">Subject</label>
+          <input class="form-input" id="subject" name="subject" type="text"
+            placeholder="Android app · Game dev · Security audit">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message">Message</label>
+          <textarea class="form-input" id="message" name="message" placeholder="Tell us about your project…"
+            required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">
+          <span>Send Message</span>
+          <span aria-hidden="true">→</span>
+        </button>
+        <p id="form-status" role="status" aria-live="polite"
+          style="font-size:0.85rem;text-align:center;margin-top:0.5rem;min-height:1.2em;"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" aria-label="CyberDevs Home">
+          <div class="nav-logo-icon"><img src="logo.png" alt="CyberDevs Logo"></div>
+          <span class="nav-logo-text">CyberDevs</span>
+        </a>
+        <p>Security-first Android developers, game creators, and cybersecurity tool builders — based in Islamabad,
+          Pakistan.</p>
+      </div>
+
+      <nav aria-label="Footer navigation">
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="#services">Android Apps</a></li>
+          <li><a href="#services">Mobile Games</a></li>
+          <li><a href="#services">Security Tools</a></li>
+          <li><a href="#services">API Integration</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 CyberDevs. All rights reserved.</span>
+      <span>Hosted on <a href="https://pages.github.com" target="_blank" rel="noopener noreferrer">GitHub Pages</a> ·
+        Islamabad, Pakistan</span>
+    </div>
+  </footer>
+
+  <!-- Hidden security marker -->
+  <span class="meta-secure" aria-hidden="true" data-site="cyberdevs.online" data-csp="strict"></span>
+
+  <script>
+    /* ── NAV SCROLL ── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    /* ── HAMBURGER ── */
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function toggleMenu(open) {
+      mobileMenu.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      const spans = hamburger.querySelectorAll('span');
+      if (open) {
+        spans[0].style.cssText = 'transform:rotate(45deg) translate(5px,5px)';
+        spans[1].style.cssText = 'opacity:0';
+        spans[2].style.cssText = 'transform:rotate(-45deg) translate(5px,-5px)';
+      } else {
+        spans.forEach(s => s.style.cssText = '');
+      }
+    }
+
+    hamburger.addEventListener('click', () => toggleMenu(!mobileMenu.classList.contains('open')));
+    mobileLinks.forEach(l => l.addEventListener('click', () => toggleMenu(false)));
+
+    /* ── PARTICLES ── */
+    const particleContainer = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${Math.random() * 3 + 1}px;
+      height: ${Math.random() * 3 + 1}px;
+      animation-duration: ${Math.random() * 15 + 10}s;
+      animation-delay: ${Math.random() * 10}s;
+    `;
+      particleContainer.appendChild(p);
+    }
+
+    /* ── REVEAL ON SCROLL ── */
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    /* ── COUNTER ANIMATION ── */
+    function animateCounter(el, target, suffix = '+') {
+      const duration = 1800;
+      const start = performance.now();
+      const update = (now) => {
+        const elapsed = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - elapsed, 3);
+        el.textContent = Math.round(ease * target) + suffix;
+        if (elapsed < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    }
+
+    const statNums = document.querySelectorAll('.stat-num[data-target]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target, parseInt(entry.target.dataset.target));
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    statNums.forEach(el => counterObserver.observe(el));
+
+    /* ── REDUCE MOTION ── */
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('[style*="animation"]').forEach(el => {
+        el.style.animation = 'none';
+      });
+    }
+
+    /* ── CONTACT FORM ── */
+    const contactForm = document.getElementById('contactForm');
+    const formStatus = document.getElementById('form-status');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) {
+        formStatus.style.color = '#ff6b6b';
+        formStatus.textContent = 'Please fill in all required fields.';
+        return;
+      }
+
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRe.test(email)) {
+        formStatus.style.color = '#ff6b6b';
+        formStatus.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      /* For static GitHub Pages hosting — opens mail client */
+      const subject = encodeURIComponent(document.getElementById('subject').value || 'Project Enquiry from ' + name);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+      window.location.href = `mailto:cyberdevs505@gmail.com?subject=${subject}&body=${body}`;
+
+      formStatus.style.color = '#28C840';
+      formStatus.textContent = '✓ Message Sended.';
+      contactForm.reset();
+    });
+  </script>
+
+  <!-- Security headers for GitHub Pages (informational comments) -->
+  <!--
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Note: enforce these headers via a _headers file (Netlify/Cloudflare) or GitHub Pages with a custom middleware solution.
+-->
 </body>
+
 </html>
